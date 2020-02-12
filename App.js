@@ -13,7 +13,8 @@ import Login from './pages/login';
 import {ThemeProvider, configureFonts, DefaultTheme} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import {Provider} from 'react-redux';
+import store from './store/redux.store';
 const Stack = createStackNavigator();
 
 const fontConfig = {
@@ -37,19 +38,21 @@ const App = () => {
     authenticated: false,
   };
   return (
-    <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="home"
-            options={{title: 'home', headerShown: false}}
-            component={Home}
-            initialParams={homeIniTialParams}
-          />
-          <Stack.Screen name="login" component={Login} />
-        </Stack.Navigator>
-      </ThemeProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <ThemeProvider theme={theme}>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="home"
+              options={{title: 'home', headerShown: false}}
+              component={Home}
+              initialParams={homeIniTialParams}
+            />
+            <Stack.Screen name="login" component={Login} />
+          </Stack.Navigator>
+        </ThemeProvider>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

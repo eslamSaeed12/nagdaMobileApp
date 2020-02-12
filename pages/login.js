@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {Button} from 'react-native-paper';
+import {linking} from '../actions/actions';
+import {connect} from 'react-redux';
 const Login = props => {
-  useEffect(() => {
-    console.log(props.route);
-  }, []);
+  function testRedux() {
+    props.linking('login');
+  }
   return (
     <View style={{backgroundColor: '#fff', flex: 1}}>
       <Text>مرحبا في صفحه التسجيل</Text>
@@ -15,8 +17,23 @@ const Login = props => {
         }>
         <Text>عوده للسابق</Text>
       </Button>
+      <Button mode="outlined" onPress={() => testRedux()}>
+        <Text>توصيل</Text>
+      </Button>
     </View>
   );
 };
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    linking: payload => dispatch(linking(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
