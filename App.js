@@ -6,17 +6,18 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import Home from './pages/home';
 import Login from './pages/login';
 
 import {ThemeProvider, configureFonts, DefaultTheme} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {I18nManager} from 'react-native';
 import {Provider} from 'react-redux';
 import store from './store/redux.store';
 const Stack = createStackNavigator();
-
+I18nManager.forceRTL(true);
 const fontConfig = {
   default: {
     regular: {
@@ -31,12 +32,17 @@ const fontConfig = {
 const theme = {
   ...DefaultTheme,
   fonts: configureFonts(fontConfig),
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#039BE5',
+  },
 };
 
 const App = () => {
   const homeIniTialParams = {
     authenticated: false,
   };
+  useEffect(() => {}, []);
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -48,7 +54,14 @@ const App = () => {
               component={Home}
               initialParams={homeIniTialParams}
             />
-            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen
+              name="login"
+              component={Login}
+              options={{
+                title: 'تسجيل الدخول',
+                headerTitleStyle: {fontFamily: 'Cairo-Bold'},
+              }}
+            />
           </Stack.Navigator>
         </ThemeProvider>
       </NavigationContainer>

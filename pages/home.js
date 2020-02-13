@@ -26,7 +26,7 @@ class Home extends Component {
       width: 150,
       height: 150,
       alignSelf: 'center',
-      marginRight: 30,
+      marginLeft: 30,
     },
 
     contentView: {
