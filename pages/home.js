@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Headline,
-  Paragraph,
-  Button,
-  Text,
-  TouchableRipple,
-} from 'react-native-paper';
+import {Headline, Paragraph, Button, Text} from 'react-native-paper';
 import {View, StyleSheet, Image} from 'react-native';
 import Container from '../components/container';
 import Logo from '../assets/images/Logo.png';
@@ -72,6 +66,7 @@ class Home extends Component {
   navigation = this.props.navigation;
 
   render() {
+    this.navigation.navigate('ReachMax');
     return (
       <View style={this.styles.homeView}>
         <Container style={this.styles.Container}>
@@ -99,6 +94,7 @@ class Home extends Component {
               تسجيل دخول
             </Button>
             <Button
+              onPress={() => this.navigation.navigate('signUP')}
               mode="contained"
               style={StyleSheet.compose(this.styles.primaryBtn, {
                 marginTop: 20,
@@ -110,9 +106,9 @@ class Home extends Component {
             <Text style={this.styles.Paragraph}>
               للمزيد من المعلومات قم بزياره موقعنا
             </Text>
-            <TouchableRipple onPress={() => console.log('to link')}>
-              <Text style={this.styles.link}>www.nagda.com</Text>
-            </TouchableRipple>
+            <Button type="text" onPress={() => console.log('tes')}>
+              www.nagda.com
+            </Button>
           </View>
         </Container>
       </View>
