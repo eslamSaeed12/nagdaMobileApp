@@ -20,6 +20,7 @@ import {Provider} from 'react-redux';
 import store from './store/redux.store';
 import MapPage from './pages/map';
 import Profile from './pages/profile';
+import BottomNav from './components/bottom.navigation';
 const Stack = createStackNavigator();
 I18nManager.forceRTL(true);
 const fontConfig = {
@@ -42,13 +43,19 @@ const theme = {
   },
 };
 
+const navREF = React.createRef();
+
+const navigatee = (name, params) => {
+  navREF.current?.navigate(name, params);
+};
+
 const App = () => {
   const homeIniTialParams = {
     authenticated: false,
   };
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer ref={navREF}>
         <ThemeProvider theme={theme}>
           <Stack.Navigator>
             <Stack.Screen
@@ -61,18 +68,14 @@ const App = () => {
               name="login"
               component={Login}
               options={{
-                title: 'تسجيل الدخول',
-                headerTitleStyle: {fontFamily: 'Cairo-Bold'},
+                headerShown: false,
               }}
             />
             <Stack.Screen
               name="signUP"
               component={Signup}
               options={{
-                title: 'تسجيل',
-                headerTitleStyle: {
-                  fontFamily: 'Cairo-Bold',
-                },
+                headerShown: false,
               }}
             />
             <Stack.Screen
@@ -85,10 +88,7 @@ const App = () => {
               name="help"
               component={HelpPage}
               options={{
-                title: 'اسئلة مكرره',
-                headerTitleStyle: {
-                  fontFamily: 'Cairo-Bold',
-                },
+                headerShown: false,
               }}
             />
 
@@ -96,10 +96,7 @@ const App = () => {
               name="profile"
               component={Profile}
               options={{
-                title: 'الصفحة الشخصية',
-                headerTitleStyle: {
-                  fontFamily: 'Cairo-Bold',
-                },
+                headerShown: false,
               }}
             />
 
@@ -111,6 +108,7 @@ const App = () => {
               }}
             />
           </Stack.Navigator>
+          <BottomNav fly={navigatee} />
         </ThemeProvider>
       </NavigationContainer>
     </Provider>

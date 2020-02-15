@@ -20,7 +20,6 @@ class MapPage extends Component {
     return (
       <View style={this.styles.mainView}>
         <View style={this.styles.mapView}></View>
-        <BottomNavigation />
       </View>
     );
   }

@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Fragment} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {IconButton, Colors} from 'react-native-paper';
+import {connect} from 'react-redux';
 
 const NavigationTab = props => {
   return <IconButton mode="text" icon={props.icon} {...props} />;
@@ -19,19 +20,55 @@ const NavigationTabs = props => {
     },
   });
 
+  const isAuthenticated = () => {
+    if (props.Authenticated) {
+      return (
+        <Fragment>
+          <NavigationTab
+            icon="account"
+            style={styles.tab}
+            color="#fff"
+            size={35}
+            href="profile"
+            onPress={() => props.fly('profile')}
+          />
+          <NavigationTab
+            icon="map-marker"
+            style={styles.tab}
+            color="#fff"
+            size={35}
+            href="map"
+            onPress={() => props.fly('map')}
+          />
+        </Fragment>
+      );
+    }
+    return false;
+  };
   return (
     <View style={styles.nav} {...props}>
-      <NavigationTab icon="home" style={styles.tab} color="#fff" size={35} />
-      <NavigationTab icon="account" style={styles.tab} color="#fff" size={35} />
       <NavigationTab
-        icon="map-marker"
+        icon="home"
         style={styles.tab}
         color="#fff"
         size={35}
+        onPress={() => props.fly('home')}
       />
-      <NavigationTab icon="help" style={styles.tab} color="#fff" size={35} />
+      {isAuthenticated()}
+      <NavigationTab
+        icon="help"
+        style={styles.tab}
+        color="#fff"
+        size={35}
+        href="helf"
+        onPress={() => props.fly('help')}
+      />
     </View>
   );
 };
-
-export default NavigationTabs;
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+export default connect(mapStateToProps)(NavigationTabs);

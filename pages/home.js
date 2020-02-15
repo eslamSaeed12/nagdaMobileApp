@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Headline, Paragraph, Button, Text} from 'react-native-paper';
 import {View, StyleSheet, Image} from 'react-native';
 import Container from '../components/container';
 import Logo from '../assets/images/Logo.png';
+import {connect} from 'react-redux';
 class Home extends Component {
   styles = StyleSheet.create({
     homeView: {
@@ -65,8 +66,38 @@ class Home extends Component {
   });
   navigation = this.props.navigation;
 
+  Authenticated() {
+    if (this.props.Authenticated) {
+      return (
+        <Button
+          onPress={() => this.navigation.navigate('map')}
+          mode="contained"
+          style={this.styles.primaryBtn}>
+          تسجيل خروج
+        </Button>
+      );
+    }
+    return (
+      <Fragment>
+        <Button
+          onPress={() => this.navigation.navigate('login')}
+          mode="contained"
+          style={this.styles.primaryBtn}>
+          تسجيل دخول
+        </Button>
+        <Button
+          onPress={() => this.navigation.navigate('signUP')}
+          mode="contained"
+          style={StyleSheet.compose(this.styles.primaryBtn, {
+            marginTop: 20,
+          })}>
+          حساب جديد
+        </Button>
+      </Fragment>
+    );
+  }
+
   render() {
-    this.navigation.navigate('ReachMax');
     return (
       <View style={this.styles.homeView}>
         <Container style={this.styles.Container}>
@@ -86,22 +117,7 @@ class Home extends Component {
               حدد اقرب نقطة شرطة من موقعك الحالي بكل سهوله
             </Paragraph>
           </View>
-          <View style={this.styles.footer}>
-            <Button
-              onPress={() => this.navigation.navigate('login')}
-              mode="contained"
-              style={this.styles.primaryBtn}>
-              تسجيل دخول
-            </Button>
-            <Button
-              onPress={() => this.navigation.navigate('signUP')}
-              mode="contained"
-              style={StyleSheet.compose(this.styles.primaryBtn, {
-                marginTop: 20,
-              })}>
-              حساب جديد
-            </Button>
-          </View>
+          <View style={this.styles.footer}>{this.Authenticated()}</View>
           <View>
             <Text style={this.styles.Paragraph}>
               للمزيد من المعلومات قم بزياره موقعنا
@@ -115,8 +131,10 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
+const mapStateToProps = state => {
+  return {...state};
+};
+export default connect(mapStateToProps)(Home);
 // navigation.goBack() the last page
 // navigation.popToTop() go to the first page
 // to get the route params from the props [route.params]

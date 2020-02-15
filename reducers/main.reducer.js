@@ -1,5 +1,6 @@
 const initialState = {
   acitvePage: 'home',
+  Authenticated: true,
 };
 
 export default (state = initialState, action) => {

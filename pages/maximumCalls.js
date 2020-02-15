@@ -50,7 +50,7 @@ const ErrorMaximumCalls = props => {
       <Headline style={styles.topHeader}>خطأ</Headline>
       <View>
         <Image source={CancelImage} style={styles.img} />
-        <Headline style={styles.Headline}>تخطيت الحد الاقصي اليومي</Headline>
+        <Headline style={styles.Headline}>تخطيت الحد الاقصي الشهري</Headline>
         <Button
           onPress={() => props.navigation.navigate('home')}
           mode="contained"
